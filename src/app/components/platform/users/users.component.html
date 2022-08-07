@@ -1,0 +1,64 @@
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <router-outlet>
+
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <h1><i class="fa fa-users"></i> Usuarios del sistema</h1>
+            </div>
+            <div class="col-md-6 text-right">
+                <mat-form-field class="filter">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button class="pull-right" color="accent" mat-raised-button (click)="createUser()">
+                    <i class="fa fa-plus"></i> NUEVO USUARIO
+                </button>
+            </div>
+        </div>
+
+        <!--<div class="text-right">
+            <mat-form-field class="filter">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+            </mat-form-field>
+        </div>
+        <button class="pull-right" color="accent" mat-raised-button (click)="createUser()">
+            <i class="fa fa-plus"></i> NUEVO USUARIO
+        </button>
+        <br>
+        <h1><i class="fa fa-users"></i> Usuarios del sistema</h1>-->
+        <mat-table #table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="firstName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre completo</mat-header-cell>
+                <mat-cell *matCellDef="let user;"> {{ user.firstName }} {{ user.lastName }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Email</mat-header-cell>
+                <mat-cell *matCellDef="let user;"> {{ user.email }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef class="text-right"></mat-header-cell>
+                <mat-cell *matCellDef="let user;" class="text-right">
+                    <button mat-icon-button color="warn" (click)="deleteUser(user._id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+    </router-outlet>
+</div>

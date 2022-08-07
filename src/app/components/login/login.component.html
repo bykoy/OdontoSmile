@@ -1,0 +1,30 @@
+<div class="main text-center">
+    <mat-card class="login-container mat-elevation-z8">
+        <img src="../../../assets/images/logo4.png" alt="Logo Smiles" class="img-fluid">
+        <br>        
+        <form (submit)="login()">
+            <mat-form-field>
+                <input matInput placeholder="Email" [formControl]="emailFormControl"
+                       [errorStateMatcher]="matcher" [(ngModel)]="user.email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Porfavor ingresar un Email valido
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                    El Email es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Contraseña" [type]="hide ? 'password' : 'text'"
+                       [formControl]="passwordFormControl" [errorStateMatcher]="matcher" [(ngModel)]="user.password">
+                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <mat-error *ngIf="passwordFormControl.hasError('required')">
+                    La contraseña es <strong>requerida</strong>
+                </mat-error>
+            </mat-form-field>
+            <br><br>
+            <div class="text-right">
+                <button type="submit" mat-raised-button color="primary" class="w-100">Iniciar sesión</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

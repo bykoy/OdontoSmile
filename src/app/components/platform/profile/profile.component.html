@@ -1,0 +1,62 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-card>
+                <mat-card-subtitle>
+                    <br>
+                    <h1><i class="fa fa-user"></i> Perfil de usuario</h1>
+                    <br>
+                    <h4>Información personal:</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Tipo de usuario: <small>{{ user.role }}</small></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Nombre completo: <small>{{ user.firstName }} {{ user.lastName }}</small></h5>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Email: <small>{{ user.email }}</small></h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4>Datos de contacto:</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Teléfono: <small>{{ user.phone }}</small></h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <h5>Dirección: <small>{{ user.address }}</small></h5>
+                        </div>
+                        <div class="col-5">
+                            <h5><small>{{ user.city }}, {{ user.country }}</small></h5>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button mat-button color="accent" (click)="updateContactInformation()">
+                            <mat-icon>edit</mat-icon> Actualizar Información
+                        </button>
+                    </div>
+                    <hr>
+                    <h4>Contraseña:</h4>
+                    <hr>
+                    <h5>Contraseña: <small>**************</small></h5>
+                    <div class="text-right">
+                        <button mat-button color="warn" (click)="updatePassword()">
+                            <mat-icon>edit</mat-icon> Actualizar Contraseña
+                        </button>
+                    </div>
+                    <br>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

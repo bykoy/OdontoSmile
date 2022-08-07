@@ -1,0 +1,44 @@
+@import "~bootstrap/scss/bootstrap.scss";
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$custom-app-primary: mat-palette($mat-blue-grey, 900, 800, 700);
+$custom-app-accent:  mat-palette($mat-cyan, 900, 800, 700);
+$custom-app-warn:    mat-palette($mat-red, 900, 800, 700);
+
+$custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+
+@include angular-material-theme($custom-app-theme);
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 200;
+}
+
+button:focus, button:active:focus, button.active:focus{
+  outline:none;
+  box-shadow:none;
+}
+
+.mat-dialog-container {
+  max-height: 70vh !important;
+}
+
+.filter {
+  max-width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+}

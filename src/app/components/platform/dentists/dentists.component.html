@@ -1,0 +1,76 @@
+<div class="container">
+  <br>
+  <br>
+    <br>
+    <router-outlet>
+
+        <div class="row">
+            <div class="col-md-6 text-left">
+              <h1><i class="fa fa-users"></i> Dentistas Registrados</h1>
+            </div>
+            <div class="col-md-6 text-right">
+              <mat-form-field class="filter">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+              <button class="pull-right" color="accent" mat-raised-button (click)="openCreateDentist()">
+                <i class="fa fa-plus"></i> INGRESAR DENTISTA
+              </button>
+            </div>
+        </div>
+
+  <!--<router-outlet>
+    <div class="text-right">
+      <mat-form-field class="filter">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+      </mat-form-field>
+    </div>
+    <button class="pull-right" color="accent" mat-raised-button (click)="openCreateDentist()">
+      <i class="fa fa-plus"></i> INGRESAR DENTISTA
+    </button>
+    <br>
+    <h1><i class="fa fa-users"></i> Dentistas Registrados</h1>-->
+    <div class="table-responsive">
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="rut">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> RUT</mat-header-cell>
+          <mat-cell *matCellDef="let dentist"> {{ dentist.rut }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Nombre completo </mat-header-cell>
+          <mat-cell *matCellDef="let dentist"> {{ dentist.firstName }} {{ dentist.lastName }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="specialty">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </mat-header-cell>
+          <mat-cell *matCellDef="let dentist"> {{ dentist.specialty }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="text-right"></mat-header-cell>
+          <mat-cell *matCellDef="let dentist" class="text-right">
+            <button mat-icon-button color="accent" matTooltip="Modificar" matTooltipPosition="above" (click)="openUpdateDentist(dentist._id)">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" matTooltip="Eliminar" matTooltipPosition="above" (click)="openDeleteDentist(dentist._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
+  </router-outlet>
+</div>
+

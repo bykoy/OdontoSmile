@@ -1,0 +1,50 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Añadir un tratamiento</h2>
+<hr>
+<form [formGroup]="treatmentFormGroup">
+    <div class="row">
+        <div class="col-sm-6">
+            <h6>Tratamiento</h6>
+            <mat-form-field>
+                <mat-select placeholder="Seleccione tratamiento" [formControlName]="['treatmentCtrl']"
+                            [(ngModel)]="newTreatment" required>
+                    <mat-option *ngFor="let treatment of treatments"
+                                [value]="{name: treatment.name, price: treatment.price}">{{treatment.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <h6>Diente</h6>
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput placeholder="1er valor" formControlName="toothFirstCtrl" type="number">
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput placeholder="2do valor" formControlName="toothSecondCtrl" type="number">
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-6">
+            <h5 class="price">Precio:
+                <small>{{ newTreatment.price | currency: 'CLP' }}</small>
+            </h5>
+        </div>
+        <div class="col-6">
+            <mat-form-field>
+                <input matInput placeholder="Otro precio" formControlName="otherPriceCtrl" type="number">
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+<div class="text-right">
+    <button mat-raised-button color="primary" (click)="createTreatment()">INGRESAR</button>
+    <button mat-raised-button mat-dialog-close>CANCELAR</button>
+</div>

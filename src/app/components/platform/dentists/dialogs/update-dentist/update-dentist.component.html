@@ -1,0 +1,71 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Actualizar Dentista</h2>
+<hr>
+<form [formGroup]="dentistFormGroup">
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput placeholder="Rut" formControlName="rutCtrl"
+               [(ngModel)]="dentist.rut" required>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput placeholder="Nombre" formControlName="firstNameCtrl"
+               [(ngModel)]="dentist.firstName" required>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput placeholder="Apellido" formControlName="lastNameCtrl"
+               [(ngModel)]="dentist.lastName" required>
+      </mat-form-field>
+    </div>
+  </div>
+  <h4>Datos de contacto:</h4>
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput placeholder="Teléfono" formControlName="phoneCtrl"
+               [(ngModel)]="dentist.phone">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="emailCtrl"
+               [(ngModel)]="dentist.email">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <mat-form-field>
+        <input matInput placeholder="Dirección" formControlName="addressCtrl"
+               [(ngModel)]="dentist.address" required>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-6">
+          <mat-form-field>
+            <input matInput placeholder="Ciudad" formControlName="cityCtrl"
+                   [(ngModel)]="dentist.city"
+                   required>
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+          <mat-form-field>
+            <input matInput placeholder="País" formControlName="countryCtrl"
+                   [(ngModel)]="dentist.country" required>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-right">
+    <button mat-raised-button color="primary" (click)="updateDentist()">ACTUALIZAR</button>
+    <button mat-raised-button mat-dialog-close>CANCELAR</button>
+  </div>
+</form>

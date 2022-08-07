@@ -1,0 +1,79 @@
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-card>
+                <mat-card-subtitle>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <h1><i class="fa fa-medkit"></i> Tratamientos</h1>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <mat-form-field class="filter">
+                                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            <button class="pull-right" color="accent" mat-raised-button (click)="newTreatments()">
+                                <i class="fa fa-plus"></i> NUEVO TRATAMIENTO
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!--<div class="text-right">
+        <mat-form-field class="filter">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar">
+        </mat-form-field>
+    </div>
+    <button class="pull-right" color="accent" mat-raised-button (click)="newTreatments()">
+        <i class="fa fa-plus"></i> NUEVO TRATAMIENTO
+    </button>
+    <br>
+    <h1><i class="fa fa-medkit"></i> Tratamientos</h1>-->
+                    <div class="table-responsive">
+                        <mat-table #table [dataSource]="dataSource" matSort>
+
+                            <ng-container matColumnDef="name">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento</mat-header-cell>
+                                <mat-cell *matCellDef="let treatments"> {{ treatments.name }}</mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="price">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Precio</mat-header-cell>
+                                <mat-cell *matCellDef="let treatments"> {{ treatments.price | currency:'CLP' }}
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="actions">
+                                <mat-header-cell *matHeaderCellDef class="text-right"></mat-header-cell>
+                                <mat-cell *matCellDef="let treatments" class="text-right">
+                                    <button mat-icon-button color="accent"
+                                        (click)="openUpdateTreatments(treatments._id)" matTooltip="Editar"
+                                        matTooltipPosition="above">
+                                        <mat-icon>mode_edit</mat-icon>
+                                    </button>
+                                    <button mat-icon-button color="warn"
+                                        (click)="openDeleteTreatments(treatments._id, treatments.name)"
+                                        matTooltip="Eliminar" matTooltipPosition="above">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </mat-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                    </div>
+                    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+                    </mat-paginator>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<router-outlet>
+    <div class="container">
+        <br>
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" routerLink="/platform/clients">Pacientes</a>
+            <span class="breadcrumb-item active">{{ patient.rut }}</span>
+        </nav>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <strong>Nombre:</strong> {{ patient.firstName }} {{ patient.lastName }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Teléfono:</strong> {{ patient.phone }}
+            </div>
+            <div class="col-md-6">
+                <strong>Email:</strong> {{ patient.email }}
+            </div>
+        </div>
+        <hr>
+        <button class="pull-right" mat-button color="warn" (click)="openDeletePatient(patient._id)">
+            <mat-icon>delete</mat-icon>
+            Eliminar
+        </button>
+        <button class="pull-right" mat-button color="accent" (click)="openUpdatePatient(patient._id)">
+            <mat-icon>mode_edit</mat-icon>
+            Editar
+        </button>
+        <br><br>
+        <h2>Presupuestos del paciente</h2>
+        <div class="table-responsive">
+            <mat-table #table [dataSource]="dataSource" matSort>
+
+                <ng-container matColumnDef="patientRut">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Rut Paciente</mat-header-cell>
+                    <mat-cell *matCellDef="let budget; let i = index;">
+                        <i *ngIf="isReady(i)" class="fa fa-check-circle"></i>
+                        {{ budget.patientRut }}
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha</mat-header-cell>
+                    <mat-cell *matCellDef="let budget"> {{ budget.date | date: 'dd/MM/yyyy' }}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="totalPrice">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Costo</mat-header-cell>
+                    <mat-cell *matCellDef="let budget">
+                        {{ budget.totalPrice | currency:'CLP' }} - {{ budget.discount * 100 }}%
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef class="text-right">
+                        <button mat-icon-button color="accent" routerLink="create">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let budget" class="text-right">
+                        <button mat-icon-button color="accent" (click)="makePDF(budget)">
+                            <mat-icon>insert_drive_file</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" [routerLink]="['/platform/clients/', patientId, budget._id]">
+                            <mat-icon>mode_edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="openDeleteBudget(budget._id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </div>
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+    </div>
+</router-outlet>

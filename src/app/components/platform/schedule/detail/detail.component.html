@@ -1,0 +1,83 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Detalle de la Cita</h2>
+<hr>
+<form [formGroup]="paymentFormGroup">
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+      <input matInput value="{{ quote.startDay | date :'short'}}" placeholder="Desde" disabled>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput value="{{ quote.endDay | date :'short'}}" placeholder="Hasta" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field>
+          <input matInput value="{{ dentQuo.firstName }} {{ dentQuo.lastName }}" placeholder="Dentista" disabled>
+        </mat-form-field>
+      </div>
+    <div class="col-sm-6">
+      <h6>Estado</h6>
+      <button *ngIf="!quote.state" mat-icon-button color="warn"
+              matTooltip="Presionar para actualizar" matTooltipPosition="above" (click)="readyQuotes(true, i)">
+        <mat-icon>access_time</mat-icon> Pendiente
+      </button>
+      <button *ngIf="quote.state" mat-icon-button color="accent"
+              matTooltip="Presionar para actualizar" matTooltipPosition="above" (click)="readyQuotes(false, i)">
+        <mat-icon>check_circle</mat-icon> Realizado
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h6>Datos del paciente</h6>
+      <mat-form-field>
+        <input matInput value="{{quote.patient.rut}}" placeholder="Rut" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput value="{{quote.patient.firstName}}" placeholder="Nombre" disabled>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput value="{{quote.patient.lastName}}" placeholder="Apellido" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <span matPrefix>$ &nbsp;</span>
+        <input matInput value="{{quote.payment}}" placeholder="Abonado" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <h6>Datos de contacto</h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput value="{{quote.patient.phone}}" placeholder="Teléfono" disabled>
+      </mat-form-field>
+    </div>
+    <div class="col-sm-6">
+      <mat-form-field>
+        <input matInput value="{{quote.patient.email}}" placeholder="Email" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="text-right">
+    <button mat-raised-button mat-dialog-close>SALIR</button>
+  </div>
+</form>

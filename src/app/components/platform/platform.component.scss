@@ -1,0 +1,61 @@
+#toolbar-main {
+  font-weight: 300;
+  height: 64px;
+  color: #FFFFFF;
+}
+
+#toolbar-main .toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+#toolbar-main .router-link-active {
+  background-color: rgba(255, 255, 255, 0.26);
+}
+
+.logo-navbar {
+  width: 135px;
+  height: 67px;
+  background: url("../../../assets/images/logo-blanco-s3.png") right center no-repeat;
+  background-size: contain;
+}
+
+mat-sidenav {
+  min-width: 250px;
+  background-color: #2f4b5a;//#125bc9;//#EF6C00;
+}
+
+mat-sidenav mat-nav-list a {
+  color: #e3e3e3;
+}
+
+mat-sidenav mat-icon,
+mat-sidenav .icon {
+  margin-right: 14px;
+}
+
+mat-sidenav .mat-nav-list {
+  padding-top: 0;
+}
+
+mat-sidenav-container {
+  background-color: #FFFFFF;
+  min-height: calc(100vh - 184px);
+}
+
+.router-link-active,
+.router-link-active:hover,
+.router-link-active:focus {
+  background-color: rgba(230, 81, 0, 0.25);
+}
+
+mat-sidenav .router-link-active,
+mat-sidenav .router-link-active:hover,
+mat-sidenav .router-link-active:focus {
+  background-color: #446d81;//#166cec;//#E65100;
+}
+
+@media (max-width: 599px) {
+  #toolbar-main {
+    padding-top: 5px;
+  }
+}

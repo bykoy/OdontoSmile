@@ -1,0 +1,97 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Ingresar Usuario</h2>
+<hr>
+<form [formGroup]="userFormGroup">
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Rut" formControlName="rutCtrl" (keyup)="checkRut(rutUser)" [(ngModel)]="rutUser" required>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Nombre" formControlName="firstNameCtrl" required>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Apellido" formControlName="lastNameCtrl" required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <mat-label>Sexo</mat-label>
+                <mat-select formControlName="genderCtrl" required>
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Femenino">Femenino</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <mat-label>Fecha Nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="dateOfBirthCtrl" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <h4>Datos de contacto:</h4>
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Teléfono" formControlName="phoneCtrl">
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Email" formControlName="emailCtrl" required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-7">
+            <mat-form-field>
+                <input matInput placeholder="Dirección" formControlName="addressCtrl" required>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput placeholder="Ciudad" formControlName="cityCtrl" required>
+                    </mat-form-field>
+                </div>
+                <div class="col-6">
+                    <mat-form-field>
+                        <input matInput placeholder="País" formControlName="countryCtrl" required>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput type="password" placeholder="Contraseña Inicial" formControlName="password1Ctrl"
+                       required>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput type="password" placeholder="Confirmar contraseña" formControlName="password2Ctrl"
+                       required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="text-right">
+        <button mat-raised-button color="primary" (click)="createUser()">INGRESAR</button>
+        <button mat-raised-button mat-dialog-close>CANCELAR</button>
+    </div>
+</form>

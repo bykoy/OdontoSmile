@@ -1,0 +1,78 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-lg-12">
+        <mat-card>
+            <mat-card-subtitle>
+  <nav class="breadcrumb" *ngIf="isFrom !== 'patient'">
+    <a class="breadcrumb-item" routerLink="../">Presupuestos</a>
+    <span class="breadcrumb-item active">Editar presupuesto {{ budget.date | date: 'dd/MM/yyyy' }}</span>
+  </nav>
+  <nav class="breadcrumb" *ngIf="isFrom === 'patient'">
+    <a class="breadcrumb-item" routerLink="../../">Pacientes</a>
+    <a class="breadcrumb-item" routerLink="../">{{ budget.patientRut }}</a>
+    <span class="breadcrumb-item active">Evolución Presupuesto {{ budget.date | date: 'dd/MM/yyyy' }}</span>
+  </nav>
+  <h2>Evolución Presupuesto {{ budget.date | date: 'dd/MM/yyyy' }}</h2>
+  <hr>
+  <h3>Tratamientos: </h3>
+  <mat-table #table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="treatment">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tratamiento</mat-header-cell>
+      <mat-cell *matCellDef="let treatments;">{{ treatments.name }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="firstTooth">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Diente</mat-header-cell>
+      <mat-cell *matCellDef="let treatments;">
+        {{ treatments.tooth.firstValue }},{{ treatments.tooth.secondValue }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="readyDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha</mat-header-cell>
+      <mat-cell *matCellDef="let treatment"> {{ treatment.readyDate | date: 'dd/MM/yyyy' }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef class="text-right">
+      </mat-header-cell>
+      <mat-cell *matCellDef="let treatments; let i = index;" class="text-right">
+        <button *ngIf="!treatments.ready" mat-icon-button color="warn"
+                matTooltip="Pendiente" matTooltipPosition="above" (click)="readyTreatment(true, i)">
+          <mat-icon>access_time</mat-icon>
+        </button>
+        <button *ngIf="treatments.ready" mat-icon-button color="accent"
+                matTooltip="Realizado" matTooltipPosition="above" (click)="readyTreatment(false, i)">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Detalle"
+                matTooltipPosition="above" (click)="openUpdateDetail(budget._id, treatments._id)">
+          <mat-icon>assignment</mat-icon>
+        </button>
+        <!--<button mat-icon-button color="warn" matTooltip="Eliminar"
+                matTooltipPosition="above" (click)="removeTreatment(i)">
+          <mat-icon>delete</mat-icon>
+        </button>-->
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  <hr>
+  <div class="text-right">
+    <button mat-button color="accent" (click)="makePdf()">
+      <mat-icon>insert_drive_file</mat-icon>
+      Descargar PDF
+    </button>
+    <button mat-button color="primary" routerLink="../">SALIR</button>
+  </div>
+  <br>
+</mat-card-subtitle>
+<mat-card-actions>
+</mat-card-actions>
+</mat-card>
+</div>
+</div>
+</div>

@@ -1,0 +1,23 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Detalle del trataminto</h2>
+<hr>
+<form [formGroup]="detailFormGroup">
+  <div class="row">
+    <!--<div class="col-sm-3">
+      <mat-form-field>
+        <input matInput [matDatepicker]="dp3" placeholder="Fecha" disabled>
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </div>-->
+    <div class="col-sm-12">
+      <mat-form-field>
+        <textarea matInput [(ngModel)]="budget.treatments[position].details.detail" [formControlName]="['detailCtrl']" placeholder="Comentarios.." rows="10"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="text-right">
+    <button mat-raised-button color="primary" (click)="updateBudget()">AGREGAR</button>
+    <button mat-raised-button mat-dialog-close>SALIR</button>
+  </div>
+</form>

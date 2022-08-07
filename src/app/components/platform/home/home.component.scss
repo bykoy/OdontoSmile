@@ -1,0 +1,41 @@
+a {
+  text-decoration: none;
+}
+
+.blue {
+  background-color: #195099;
+  color: #FFFFFF;
+}
+
+.blue:focus,
+.blue:hover {
+  background-color: #2169c9;
+}
+
+.green {
+  background-color: #189979;
+  color: #FFFFFF;
+}
+
+.green:focus,
+.green:hover {
+  background-color: #1fc49b;
+}
+
+.red {
+  background-color: #992d25;
+  color: #FFFFFF;
+}
+
+.red:focus,
+.red:hover {
+  background-color: #bb372d;
+}
+
+mat-card {
+
+}
+
+mat-card .small {
+  font-size: 17px;
+}

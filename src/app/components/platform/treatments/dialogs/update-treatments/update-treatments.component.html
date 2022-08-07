@@ -1,0 +1,23 @@
+<button type="button" class="close" mat-dialog-close>&times;</button>
+<h2>Actualizar Tratamiento</h2>
+<hr>
+<form [formGroup]="treatmentsFormGroup">
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Nombre Tratamiento" formControlName="tratNameCtrl"
+                       [(ngModel)]="treatment.name" required>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field>
+                <input matInput placeholder="Precio" formControlName="priceNameCtrl"
+                       [(ngModel)]="treatment.price" required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="text-right">
+        <button mat-raised-button color="primary" (click)="updateTreatments()">ACTUALIZAR</button>
+        <button mat-raised-button mat-dialog-close>CANCELAR</button>
+    </div>
+</form>

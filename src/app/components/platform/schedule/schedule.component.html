@@ -1,0 +1,425 @@
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-card>
+                <mat-card-subtitle>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <h1><i class="fa fa-calendar"></i> Citas</h1>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <button color="accent" mat-raised-button (click)="newAppointment(null)">
+                                <i class="fa fa-plus"></i> NUEVA CITA
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <!--<div class="table-responsive">
+    <mat-table #table [dataSource]="dataSource" matSort matSortActive="hour" matSortDisableClear matSortDirection="asc">
+
+        <ng-container matColumnDef="date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let quotes"> {{ quotes.startDay }}</mat-cell>
+        </ng-container>payment
+
+      <ng-container matColumnDef="hour">
+        <mat-header-cell *matHeaderCellDef mat-sort-header disableClear> Hora </mat-header-cell>
+        <mat-cell *matCellDef="let quotes"> {{ quotes.endDay }}</mat-cell>
+      </ng-container>payment
+
+      <ng-container matColumnDef="patient">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Paciente</mat-header-cell>
+        <mat-cell *matCellDef="let quotes"> {{ quotes.patient.firstName }} {{ quotes.patient.lastName }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="contact">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Contacto</mat-header-cell>
+        <mat-cell *matCellDef="let quotes"> {{ quotes.patient.phone }} {{ quotes.patient.email }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción</mat-header-cell>
+        <mat-cell *matCellDef="let quotes"> {{ quotes.description }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="payment">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Abonó</mat-header-cell>
+        <mat-cell *matCellDef="let quotes"> {{ quotes.payment | currency:'CLP'  }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="text-right">
+        </mat-header-cell>
+        <mat-cell *matCellDef="let quotes; let i = index;" class="text-right">
+          <button *ngIf="!quotes.state" mat-icon-button color="warn"
+                  matTooltip="Pendiente" matTooltipPosition="above" (click)="readyQuotes(true, i)">
+            <mat-icon>access_time</mat-icon>
+          </button>
+          <button *ngIf="quotes.state" mat-icon-button color="accent"
+                  matTooltip="Realizado" matTooltipPosition="above" (click)="readyQuotes(false, i)">
+            <mat-icon>check_circle</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Abonar" color="accent"
+                  matTooltipPosition="above" (click)="openUpdatePayment(quotes._id)">
+            <mat-icon>attach_money</mat-icon>
+          </button>
+            <button mat-icon-button color="accent" matTooltip="Presupuestos" matTooltipPosition="above" (click)="openPatient(quotes.patient.rut)">
+                <mat-icon>forward</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="openDeleteQuote(quotes._id)" matTooltip="Eliminar" matTooltipPosition="above">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+          <!--<button mat-icon-button color="warn" matTooltip="Eliminar"
+                  matTooltipPosition="above" (click)="removeQuote(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+  <mat-paginator #paginator
+                 [pageSize]="20"
+                 [pageSizeOptions]="[20, 30]">
+  </mat-paginator>
+-->
+                    <mat-tab-group dynamicHeight>
+                        <mat-tab label="Busqueda General">
+                            <form [formGroup]="scheduleFormGroup">
+                                <br>
+                                <div class="text-left">
+                                    <mat-form-field class="dat">
+                                        <mat-select placeholder="Seleccione dentista"
+                                            [formControlName]="['dentistCtrl']" [(ngModel)]="dentist"
+                                            (selectionChange)="onFilterDentist($event.value)">
+                                            <mat-option *ngFor="let dentist of dentists" [value]="dentist">
+                                                {{dentist.firstName}} {{dentist.lastName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-md-4">
+                                        <div class="btn-group">
+                                            <div class="btn btn-primary" mwlCalendarPreviousView [view]="view"
+                                                [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                                Anterior
+                                            </div>
+                                            <div class="btn btn-outline-secondary" mwlCalendarToday
+                                                [(viewDate)]="viewDate">
+                                                Hoy
+                                            </div>
+                                            <div class="btn btn-primary" mwlCalendarNextView [view]="view"
+                                                [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                                Siguiente
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'es' }}</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="btn-group">
+                                            <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
+                                                [class.active]="view === CalendarView.Month">
+                                                Mes
+                                            </div>
+                                            <div class="btn btn-primary" (click)="setView(CalendarView.Week)"
+                                                [class.active]="view === CalendarView.Week">
+                                                Semana
+                                            </div>
+                                            <div class="btn btn-primary" (click)="setView(CalendarView.Day)"
+                                                [class.active]="view === CalendarView.Day">
+                                                Día
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div [ngSwitch]="view">
+                                    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate"
+                                        [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen"
+                                        (dayClicked)="dayClicked($event.day)">
+                                    </mwl-calendar-month-view>
+                                    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate"
+                                        [events]="events" [refresh]="refresh" [dayStartHour]="9" [dayEndHour]="21"
+                                        [hourSegments]="4"
+                                        (hourSegmentClicked)="newAppointment($event.date)"
+                                        [excludeDays]="excludeDays">
+                                    </mwl-calendar-week-view>
+                                    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
+                                        [events]="events" [refresh]="refresh" [dayStartHour]="9" [dayEndHour]="21"
+                                        [hourSegments]="4"
+                                        (hourSegmentClicked)="newAppointment($event.date)">
+                                    </mwl-calendar-day-view>
+                                </div>
+                            </form>
+
+                            <!-- Respaldo -->
+                            <!--<div [ngSwitch]="view">
+                <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+                                         [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+                                         (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+                </mwl-calendar-month-view>
+                <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+                                        [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+                                        (eventTimesChanged)="eventTimesChanged($event)">
+                </mwl-calendar-week-view>
+                <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+                                       (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+                </mwl-calendar-day-view>
+            </div>-->
+                            <!-- Everything you see below is just for the demo, you don't need to include it in your app
+
+            <br /><br /><br />
+
+            <h3>
+                Agregar Cita
+                <button class="btn btn-primary float-right" (click)="addEvent()">
+                    Agregar
+                </button>
+                <div class="clearfix"></div>
+            </h3>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Primary color</th>
+                        <th>Secondary color</th>
+                        <th>Starts at</th>
+                        <th>Ends at</th>
+                        <th>Remove</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr *ngFor="let event of events">
+                        <td>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="event.title"
+                                    (keyup)="refresh.next()"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                    type="color"
+                                    [(ngModel)]="event.color.primary"
+                                    (change)="refresh.next()"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                    type="color"
+                                    [(ngModel)]="event.color.secondary"
+                                    (change)="refresh.next()"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    mwlFlatpickr
+                                    [(ngModel)]="event.start"
+                                    (ngModelChange)="refresh.next()"
+                                    [altInput]="true"
+                                    [convertModelValue]="true"
+                                    [enableTime]="true"
+                                    dateFormat="Y-m-dTH:i"
+                                    altFormat="F j, Y H:i"
+                                    placeholder="Not set"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                    class="form-control"
+                                    type="text"
+                                    mwlFlatpickr
+                                    [(ngModel)]="event.end"
+                                    (ngModelChange)="refresh.next()"
+                                    [altInput]="true"
+                                    [convertModelValue]="true"
+                                    [enableTime]="true"
+                                    dateFormat="Y-m-dTH:i"
+                                    altFormat="F j, Y H:i"
+                                    placeholder="Not set"
+                            />
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" (click)="deleteEvent(event)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ng-template #modalContent let-close="close">
+                <div class="modal-header">
+                    <h5 class="modal-title">Event action occurred</h5>
+                    <button type="button" class="close" (click)="close()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        Action:
+                        <pre>{{ modalData?.action }}</pre>
+                    </div>
+                    <div>
+                        Event:
+                        <pre>{{ modalData?.event | json }}</pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+                        OK
+                    </button>
+                </div>
+            </ng-template>-->
+                        </mat-tab>
+
+
+
+                        <mat-tab label="Busqueda especifica">
+                            <br>
+
+                            <form [formGroup]="patientFormGroup">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <form>
+                                            <mat-form-field>
+                                                <input type="text" placeholder="Rut Paciente" aria-label="Number"
+                                                    matInput [formControl]="myControl" [matAutocomplete]="auto"
+                                                    [(ngModel)]="patien" (blur)="findPatient()" required>
+                                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                                    <mat-option *ngFor="let patient of filteredPatients | async"
+                                                        [value]="patient.rut">
+                                                        {{patient.rut}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <mat-form-field>
+                                            <input matInput value="{{pat2.firstName}} {{pat2.lastName}}"
+                                                placeholder="Nombre Paciente" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <mat-form-field>
+                                            <input matInput value="{{pat2.phone}}" placeholder="Teléfono" disabled>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <button mat-raised-button color="primary"
+                                            (click)="searchPatient()">BUSCAR</button>
+                                    </div>
+                                </div>
+
+                                <br>
+                                <div class="table-responsive">
+                                    <mat-table #table [dataSource]="dataSource" matSort>
+
+                                        <ng-container matColumnDef="state">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Estado</mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2">
+                                                <button *ngIf="!quotes2.state" mat-icon-button color="warn"
+                                                    matTooltip="Presionar para actualizar" matTooltipPosition="above"
+                                                    (click)="readyQuotes(true, quotes2)">
+                                                    <mat-icon>access_time</mat-icon> Pendiente
+                                                </button>
+                                                <button *ngIf="quotes2.state" mat-icon-button color="accent"
+                                                    matTooltip="Presionar para actualizar" matTooltipPosition="above"
+                                                    (click)="readyQuotes(false, quotes2)">
+                                                    <mat-icon>check_circle</mat-icon> Realizado
+                                                </button>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="date">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2"> {{ quotes2.startDay | date
+                                                :'shortDate'}}</mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="hour">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Hora </mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2"> {{ quotes2.startDay | date
+                                                :'shortTime'}} - {{ quotes2.endDay | date :'shortTime'}}</mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="description">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2"> {{ quotes2.description }}</mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="payment">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Abono</mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2"> {{ quotes2.payment | currency:'CLP' }}
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="dentist">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header> Dentista
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2"> {{ quotes2.rut_dentists }}</mat-cell>
+                                        </ng-container>
+
+                                        <ng-container matColumnDef="actions">
+                                            <mat-header-cell *matHeaderCellDef class="text-right"></mat-header-cell>
+                                            <mat-cell *matCellDef="let quotes2" class="text-right">
+                                                <button mat-icon-button color="accent" matTooltip="Detalle"
+                                                    matTooltipPosition="above" (click)="openDetail(quotes2._id)">
+                                                    <mat-icon>info</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="accent" matTooltip="Abonar"
+                                                    matTooltipPosition="above" (click)="openUpdatePayment(quotes2._id)">
+                                                    <mat-icon>payment</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="accent" matTooltip="Ficha Clinica"
+                                                    matTooltipPosition="above"
+                                                    (click)="openPatient(quotes2.patient.rut)">
+                                                    <mat-icon>assignment</mat-icon>
+                                                </button>
+                                                <button mat-icon-button color="warn" matTooltip="Eliminar Cita"
+                                                    matTooltipPosition="above" (click)="openDeleteQuote(quotes2._id)">
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </mat-cell>
+                                        </ng-container>
+
+
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                    </mat-table>
+                                </div>
+                                <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+                                </mat-paginator>
+                            </form>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+                </mat-card-subtitle>
+                <mat-card-actions>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+
+</div>

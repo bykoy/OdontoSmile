@@ -1,0 +1,98 @@
+<div class="platform-container">
+    <mat-toolbar color="primary" id="toolbar-main">
+        <mat-toolbar-row>
+            <div>
+                <button mat-icon-button (click)="sidenav.toggle()">
+                    <mat-icon class="mat-24">menu</mat-icon>
+                </button>
+            </div>
+            <a class="logo-navbar" routerLink="/platform"></a>
+            <span class="toolbar-spacer"></span>
+            <!--<button mat-icon-button routerLink="users" routerLinkActive="router-link-active">
+            <mat-icon>person_add</mat-icon>
+        </button>-->
+            <button mat-icon-button [matMenuTriggerFor]="appMenu" [class.router-link-active]="isProfile">
+                <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #appMenu="matMenu">
+                <button mat-menu-item routerLink="profile" routerLinkActive="router-link-active">
+                    <mat-icon>face</mat-icon>
+                    <span>Mi perfil</span>
+                </button>
+                <ng-container *ngIf="hasRole(['Admin'])">
+                    <button mat-menu-item routerLink="users" routerLinkActive="router-link-active">
+                        <mat-icon>person_add</mat-icon>
+                        <span>Agregar Usuarios</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="hasRole(['Admin'])">
+                    <button mat-menu-item routerLink="dentist" routerLinkActive="router-link-active">
+                        <mat-icon>person_add</mat-icon>
+                        <span>Agregar Dentistas</span>
+                    </button>
+                </ng-container>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>power_settings_new</mat-icon>
+                    <span>Cerrar sesión</span>
+                </button>
+            </mat-menu>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="navOpened()"
+            class="mat-elevation-z1">
+            <mat-nav-list>
+                <a mat-list-item [routerLink]="['/platform/home']" routerLinkActive="router-link-active">
+                    <i class="fa fa-home icon"></i>
+                    Inicio
+                </a>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Secre', 'Doc', 'Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/schedule']" routerLinkActive="router-link-active">
+                        <i class="fa fa-calendar icon"></i>
+                        Citas
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Asist', 'Secre', 'Doc', 'Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/clients']" routerLinkActive="router-link-active">
+                        <i class="fa fa-users icon"></i>
+                        Pacientes
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Asist', 'Secre', 'Doc', 'Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/budgets']" routerLinkActive="router-link-active">
+                        <i class="fa fa-file icon"></i>
+                        Presupuestos
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Secre', 'Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/treatments']" routerLinkActive="router-link-active">
+                        <i class="fa fa-medkit icon"></i>
+                        Tratamientos
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/supplies']" routerLinkActive="router-link-active">
+                        <i class="fas fa-coins icon"></i>
+                        Insumos
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+                <ng-container *ngIf="hasRole(['Admin'])">
+                    <a mat-list-item [routerLink]="['/platform/movements']" routerLinkActive="router-link-active">
+                        <i class="fas fa-coins icon"></i>
+                        Movimientos
+                    </a>
+                </ng-container>
+                <mat-divider></mat-divider>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <router-outlet></router-outlet>
+    </mat-sidenav-container>
+</div>
+<app-footer-platform></app-footer-platform>
